@@ -37,3 +37,26 @@ console.log(today);
 </section>
 */
 
+let container = $('.container')
+let time;
+time = '8:00am'
+let newRow = $('<section>').addClass('row');
+let hourCell = $('<div>').addClass('col-md-4');
+hourCell.text(time);
+newRow.append(hourCell);
+
+let inputCell = $('<div>').addClass('col-md-5');
+let input = $('<input type = "text">');
+input.addClass('input');
+input.attr('id', time);
+inputCell.append(input);
+newRow.append(inputCell);
+
+let saveBtnCell = $('<div>').addClass('col-md-3');
+let saveBtn = $('<button>').addClass('save-btn');
+saveBtn.attr('date-time', time);
+saveBtn.text('save');
+saveBtnCell.append(saveBtn);
+newRow.append(saveBtnCell);
+
+container.append(newRow);
