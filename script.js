@@ -2,28 +2,50 @@ let currentDay;
 const today = Date.parse(new Date());
 currentDay = today;
 console.log(today);
+let currentTime = moment().format('dddd, MMM Do YYYY, HH:mm a');
+$('#currentDay').text(currentTime);
+let currentHour = moment().format('HH');
+console.log(currentHour);
 
 $(document).ready(function () {
 
     $('.save-btn').on("click", function () {
 
-        alert('saved');
+        console.log('saved');
 
     });
 })
 
 let container = $('.container')
-let time;
+
+
+// array of times
+const arr = ['8:00am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm', '8pm'];
+const numTime = [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+arr.forEach((Element, index) => {
+    console.log(Element)
+    let time;
 //Make repeatable
-time = '8:00am'
+time = Element
 let newRow = $('<section>').addClass('row');
 let hourCell = $('<div>').addClass('col-md-4');
 hourCell.text(time);
 newRow.append(hourCell);
+let timeState = "input"
+if (currentHour > numTime[index]){
+    timeState = timeState + " past"
+} else if (currentHour < numTime[index]){
+    timeState = timeState + " future"
+} else {
+    timeState = timeState + " present"
+}
+
+
+
 
 let inputCell = $('<div>').addClass('col-md-5');
 let input = $('<input type = "text">');
-input.addClass('input');
+input.addClass(timeState);
 input.attr('id', time);
 inputCell.append(input);
 newRow.append(inputCell);
@@ -37,17 +59,27 @@ newRow.append(saveBtnCell);
 
 container.append(newRow);
 
-// array of times
-let arr = ['8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm', '8pm'];
+});
+// for (let i=0, i < arr.length; i++){
+//     let value = arr[i];
+//     console.log("i = " + value);
+// }
 
 // onclick event to save user input to local storage
-$('.rowBttn').on('click', function () {
+$('.rowBtn').on('click', function () {
     let timeOfDay = $(this).parent().attr('id');
     let textContent = $('input').val().trim();
 
     localStorage.setItem(timeOfDay, textContent);
     console.log(timeOfDay, textContent);
 });
+
+
+// window.addEventListener('storage', () => {
+//     // When local storage changes, dump the list to
+//     // the console.
+//     console.log(JSON.parse(window.localStorage.getItem('input')));    
+//   });
 
 // take children and set to parent
 $('#8am').children('input').val(localStorage.getItem('8am'));
