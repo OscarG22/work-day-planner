@@ -52,16 +52,16 @@ arr.forEach((Element, index) => {
 $('.save-btn').on('click', function(){
     let value = $(this).parent().siblings('.textarea').children('textarea').val();
     let time = $(this).attr('date-time');
-    localStorage.setItem('time, value', JSON.stringify(time, value));
-    localStorage.getItem('value, time', JSON.stringify(value, time));
+    localStorage.setItem(time, value);
+    // localStorage.setItem('time, value', JSON.stringify(time, value));
+    // localStorage.getItem('value, time', JSON.stringify(value, time));
 });
-// $('.rowBtn').on('click', function () {
-//     let timeOfDay = $(this).parent().attr('id');
-//     let textContent = $('input').val().trim();
 
-//     localStorage.setItem(timeOfDay, textContent);
-//     console.log(timeOfDay, textContent);
-// });
+$('textarea').each(function(){
+    let retrieve = $(this).attr('id');
+    let savedInput = localStorage.getItem(retrieve);
+    $(this).val(savedInput);
+})
 
 // take children and set to parent
 $('#8am').children('input').val(localStorage.getItem('8am'));
